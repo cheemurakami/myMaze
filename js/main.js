@@ -35,7 +35,7 @@
           let destCol;
 
           do {
-            const dir = Math.floor(Math.random() * 4);
+            const dir = row === 2 ? Math.floor(Math.random() * 4) : Math.floor(Math.random() * 3) + 1;
             switch (dir){
               case 0: //up
               destRow = row -1
