@@ -3,6 +3,10 @@
 (() => {
   class Maze {
     constructor(row, col, canvas){
+
+      if (row < 5 || col < 5 || row % 2 === 0 || col % 2 ===0){
+        alert("Enter odd numbers greater than 5") //has to be odd num and greater than 5
+      }
       this.ctx = canvas.getContext('2d');
       this.row = row;
       this.col = col;
@@ -88,6 +92,6 @@
   if (typeof canvas.getContext === 'undefined') {
     return;
   }
-  const maze = new Maze(21, 19, canvas);
+  const maze = new Maze(7, 19, canvas);
   maze.render();
 })();
