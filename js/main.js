@@ -2,35 +2,40 @@
 
 (() => {
   class Maze {
-    constructor(canvas){
+    constructor(row, col, canvas){
       this.ctx = canvas.getContext('2d');
+      this.row = row;
+      this.col = col;
       this.data = this.getData();
+      this.WALL_SIZE = 10;
+      canvas.height = this.row * this.WALL_SIZE; //bc default is 150px
+      canvas.width = this.col * this.WALL_SIZE; //bc default is 300px
     }
 
     getData(){
       let data = []; //why const
       
-      for(let row = 0; row < 9; row++){
+      for(let row = 0; row < this.row; row++){
         data[row] = [];　
-        for(let col = 0; col < 7; col++){
+        for(let col = 0; col < this.col; col++){
           data[row][col] = 1; // all walls
         }
       }
 
-      for(let row = 1; row < 9 -1; row++){
-        for(let col = 1; col < 7 -1; col++){
+      for(let row = 1; row < this.row -1; row++){
+        for(let col = 1; col < this.col -1; col++){
           data[row][col] = 0; //外側だけ壁
         }
       }
         
-      for(let row = 2; row < 9 -2; row += 2){
-        for(let col = 2; col < 7 -2; col +=2){
+      for(let row = 2; row < this.row -2; row += 2){
+        for(let col = 2; col < this.col -2; col +=2){
           data[row][col] = 1; //格子状
         }
       }
 
-      for(let row = 2; row < 9 -2; row += 2){
-        for(let col = 2; col < 7 -2; col +=2){
+      for(let row = 2; row < this.row -2; row += 2){
+        for(let col = 2; col < this.col -2; col +=2){
           let destRow;
           let destCol;
 
@@ -68,7 +73,11 @@
       for(let row = 0; row < this.data.length; row++){
         for(let col = 0; col < this.data[row].length; col++){
           if(this.data[row][col] === 1){
-            this.ctx.fillRect(col * 10, row * 10, 10, 10) // kabe no size set to 10, 幅と高さも10
+            this.ctx.fillRect(
+              col * this.WALL_SIZE, 
+              row * this.WALL_SIZE, 
+              this.WALL_SIZE, 
+              this.WALL_SIZE) // kabe no size set to 10, 幅と高さも10
           }
         }
       }
@@ -79,6 +88,6 @@
   if (typeof canvas.getContext === 'undefined') {
     return;
   }
-  const maze = new Maze(canvas);
+  const maze = new Maze(21, 19, canvas);
   maze.render();
 })();
